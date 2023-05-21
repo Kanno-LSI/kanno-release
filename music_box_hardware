@@ -1,0 +1,286 @@
+/*
+ * seminarTA.c
+ *
+ * Created: 2023/04/17 10:32:22
+ * Author : kanno
+ * command : avrdude -c usbasp -p attiny84 -U flash:w:seminarTA.hex
+ */ 
+
+#define F_CPU 8000000L	//内部クロック8MHz
+#include <avr/io.h>
+#include <avr/sfr_defs.h>
+#include <util/delay.h>  //_delay_ms()
+#include <avr/interrupt.h>  //割り込み
+
+#define UNIT_DLY 2.0e0	//単位待ち時間
+#define SONG_WAIT 120.0e0	//単位待ち時間
+#define SONG_WAITmini 60.0e0	//単位待ち時間
+#define ADC0SEL 0b00000000	//AD変換用ピン0
+#define ADC1SEL 0b00000001	//AD変換用ピン1
+
+typedef	unsigned char	uchar;
+typedef	unsigned short	ushort;
+volatile ushort   mode=0;	//スイッチ用変数
+volatile ushort   t=0;	//タイマ割り込み用変数
+int delay_ct,ct;	//AD変換用遅延変数
+
+//初期設定
+void init(void){
+	
+	//入出力設定
+	PORTA = ~(_BV(PA0)|_BV(PA1));	//AD変換用ピン初期値0
+	PORTB = ~(_BV(PB0));	//MonLED用ピン初期値0
+	DDRB |= _BV(PB0);	//MonLED用ピン出力
+	
+	//PWM変調
+	DDRA |= (1<<PA6);     // PA6出力
+	TCCR1A = 0b10000010;  // TOP：ICR1，COMP：OCR1A，非反転動作
+	TCCR1B = 0b00011010;  // 8分周
+	
+	//外部入力割り込み(INT0)
+	GIMSK |= (1<<INT0);             //割り込み許可
+	MCUCR |= (1<<ISC01)|(1<<ISC00); //INT0(PB2)の立ち下がり
+
+	//タイマ比較B一致割り込み
+	TIMSK1 = 0b00000100;		//タイマ比較B割り込み許可
+	OCR1B = 100;
+	
+	//AD変換用
+	ADCSRA |= (_BV(ADEN)|_BV(ADPS1));
+	ADCSRB |= _BV(ADLAR);
+	ADMUX = ADC0SEL;
+}
+
+//曲変更スイッチ用割り込み
+ISR(EXT_INT0_vect)
+{
+	cli();//多重割り込み禁止
+	mode++;
+	if(mode >= 2) mode=0;
+	sei();//多重割り込み許可
+}
+
+//曲速度変更(タイマ比較一致割り込み＋AD変換)
+ISR (TIM1_COMPB_vect){
+	t++;
+	if(t>=100){
+		ADCSRA |=_BV(ADSC);	//AD変換スタート
+		loop_until_bit_is_clear(ADCSRA,ADSC);
+		delay_ct = ADCH;
+		ADMUX=ADC1SEL;	//次回AD変換準備
+		t = 0;
+	}
+}
+
+/* 以下音階関数 */
+void n(void){  //伸ばし棒
+	_delay_ms(SONG_WAIT);
+	for(ct=0;ct<delay_ct;ct++){
+		_delay_ms(UNIT_DLY);
+	}
+}
+void n0(void){  //伸ばし棒短いバージョン
+	_delay_ms(SONG_WAITmini);
+	for(ct=0;ct<delay_ct;ct++){
+		_delay_ms(UNIT_DLY);
+	}
+}
+void s0(void){  //so0
+	ICR1 =5014;
+	OCR1A =2507;
+	_delay_ms(SONG_WAIT);
+	for(ct=0;ct<delay_ct;ct++){
+		_delay_ms(UNIT_DLY);
+	}
+}
+
+void l0(void){	//ラ0
+	ICR1 =4544;
+	OCR1A =2274;
+	_delay_ms(SONG_WAIT);
+	for(ct=0;ct<delay_ct;ct++){
+		_delay_ms(UNIT_DLY);
+	}
+}
+void c0(void){	//シ0
+	ICR1 =4049;
+	OCR1A =2024;
+	_delay_ms(SONG_WAIT);
+	for(ct=0;ct<delay_ct;ct++){
+		_delay_ms(UNIT_DLY);
+	}
+}
+void d(void){	//ド
+	ICR1 =3830;
+	OCR1A =1915;
+	_delay_ms(SONG_WAIT);
+	for(ct=0;ct<delay_ct;ct++){
+		_delay_ms(UNIT_DLY);
+	}
+}
+void r(void){	//レ
+	ICR1 =3404;
+	OCR1A=1707;
+	_delay_ms(SONG_WAIT);
+	for(ct=0;ct<delay_ct;ct++){
+		_delay_ms(UNIT_DLY);
+	}
+}
+void m(void){	//ミ
+	ICR1  =3033;
+	OCR1A =1516;
+	_delay_ms(SONG_WAIT);
+	for(ct=0;ct<delay_ct;ct++){
+		_delay_ms(UNIT_DLY);
+	}
+}
+void f(void){ //ファ
+	ICR1  =2863;
+	OCR1A =1431;
+	_delay_ms(SONG_WAIT);
+	for(ct=0;ct<delay_ct;ct++){
+		_delay_ms(UNIT_DLY);
+	}
+}
+void s(void){ //so
+	ICR1  =2550;
+	OCR1A =1225;
+	_delay_ms(SONG_WAIT);
+	for(ct=0;ct<delay_ct;ct++){
+		_delay_ms(UNIT_DLY);
+	}
+}
+void l(void){  //ラ
+	ICR1  =2272;
+	OCR1A =1136;
+	_delay_ms(SONG_WAIT);
+	for(ct=0;ct<delay_ct;ct++){
+		_delay_ms(UNIT_DLY);
+	}
+}
+void c(void){	//シ
+	ICR1  =2024;
+	OCR1A =1012;
+	_delay_ms(SONG_WAIT);
+	for(ct=0;ct<delay_ct;ct++){
+		_delay_ms(UNIT_DLY);
+	}
+}
+void d1(void){	//ド1
+	ICR1  =1910;
+	OCR1A =955;
+	_delay_ms(SONG_WAIT);
+	for(ct=0;ct<delay_ct;ct++){
+		_delay_ms(UNIT_DLY);
+	}
+}
+void r1(void){	//レ1
+	ICR1 =1702;
+	OCR1A =851;
+	_delay_ms(SONG_WAIT);
+	for(ct=0;ct<delay_ct;ct++){
+		_delay_ms(UNIT_DLY);
+	}
+}
+void m1(void){	//ミ1
+	ICR1 =1516;
+	OCR1A =758;
+	_delay_ms(SONG_WAIT);
+	for(ct=0;ct<delay_ct;ct++){
+		_delay_ms(UNIT_DLY);
+	}
+}
+void f1(void){	//ファ1
+	ICR1 =1431;
+	OCR1A =715;
+	_delay_ms(SONG_WAIT);
+	for(ct=0;ct<delay_ct;ct++){
+		_delay_ms(UNIT_DLY);
+	}
+}
+void s1(void){  //so1
+	ICR1 =1275;
+	OCR1A =637;
+	_delay_ms(SONG_WAIT);
+	for(ct=0;ct<delay_ct;ct++){
+		_delay_ms(UNIT_DLY);
+	}
+}
+void l1(void){	//ラ1
+	ICR1 =1135;
+	OCR1A =567;
+	_delay_ms(SONG_WAIT);
+	for(ct=0;ct<delay_ct;ct++){
+		_delay_ms(UNIT_DLY);
+	}
+}
+void c1(void){	//シ1
+	ICR1 =1011;
+	OCR1A =502;
+	_delay_ms(SONG_WAIT);
+	for(ct=0;ct<delay_ct;ct++){
+		_delay_ms(UNIT_DLY);
+	}
+}
+void d2(void){	//ド2
+	ICR1 =955;
+	OCR1A =477;
+	_delay_ms(SONG_WAIT);
+	for(ct=0;ct<delay_ct;ct++){
+		_delay_ms(UNIT_DLY);
+	}
+}
+void sfl(void){ //so#
+	ICR1  =2702;
+	OCR1A =1351;
+	_delay_ms(SONG_WAIT);
+	for(ct=0;ct<delay_ct;ct++){
+		_delay_ms(UNIT_DLY);
+	}
+}
+void ssh(void){  //so♭
+	ICR1  =2407;
+	OCR1A =1203;
+	_delay_ms(SONG_WAIT);
+	for(ct=0;ct<delay_ct;ct++){
+		_delay_ms(UNIT_DLY);
+	}
+}
+void We(void){  //ウェッ for lemon
+	ICR1  =1000;
+	OCR1A =50;
+	_delay_ms(100);
+}
+
+
+int main(void)
+{	
+	init();	//初期設定
+	sei();  //割り込み許可
+	
+	while(1)
+	{
+		if(mode==0){
+			//Happy birthday
+			r();n();m();n();r();n();s();n();f();n();n();
+			r();n();m();n();r();n();l();n();s();n();n();
+			r();n();r1();n();c();n();s();n();f();n();m();n();n();n();
+			d1();n();c();n();s();n();l();n();s();n();n();n();n();
+		}	
+		else{
+			//Lemon
+			d1();r1();m1();n();d1();l();n();n();r1();n();c();n();s();m();n();n();c();n();l();n();s();d();n();n();s();n();m();n();n();n();n();n();
+			r();m();f();n();n();n();d1();n();c();d1();s();n();n();n();f();n();m();f();sfl();n();n();n0();s();d1();n();c();l();ssh();
+			n();We();ssh();n();n();n();
+			d1();r1();m1();n();d1();l();n();n();r1();n();c();n();s();m();n();n();c();n();l();n();s();d();n();n();s();n();m();n();We();m();n();n();n();
+			r();m();f();n();n();n();s();n();f();s();m();n();s();n();d1();n();m1();n();r1();n();r1();r1();n();n();d1();n();d1();n();We();d1();n();n();n();
+			l();n();n();c();d1();n();c();l();s();n();m1();n();m1();n();n();n();r1();n();n();m1();f1();n();m1();r1();d1();n();r1();n();s();n();n();n();
+			f();n();n();s();l();n();s();f();m();n();d1();n();d1();n();d1();n();c();n();n();n();l();n();c();n();d1();n();n();n();n();
+			r1();m1();r1();d1();l();d1();n();n();m1();s1();n();n();r1();d1();n();n();r1();m1();r1();d1();l();d1();n();n();m1();s1();n();n();r1();d1();n();n();
+			r1();m1();r1();d1();l();d1();n();n();m1();s1();n();n();l1();s1();n();n();s1();d2();n();n();c1();s1();n();n();m1();s1();n();n();r1();n();n();n();
+			r1();m1();r1();d1();l();d1();n();n();m1();s1();n();n();r1();d1();n();n();d1();d1();r1();m1();f1();m1();n();n();r1();c();n();n();d1();n();n();n();n();
+			d1();c();l();n();c();n();d1();n();r1();n();d1();n();n();s();m();s();n();s();l();r1();n();n();c();d1();n();n();d1();n();n();n();
+			d1();c();l();n();c();n();d1();n();r1();n();d1();n();s();n();d1();r1();n();n();m1();f1();n();n();r1();d1();n();d1();n();n();n();n();n();n();
+			}
+		}
+}
