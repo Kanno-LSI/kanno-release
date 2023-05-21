@@ -1,8 +1,8 @@
 # kanno-release
 作成したソースコードの例です。研究に直接関わるものの掲載はしていません。
 
-# 1. タイトルと概要、URL
+## Description
 
-# 2. 使用技術
+## Demo
 
-# 3. 機能、非機能一覧
+## Requirement
