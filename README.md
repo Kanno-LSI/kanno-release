@@ -37,8 +37,10 @@ AD変換を利用するとボリューム抵抗の回し具合に応じた数値
 
 ### Requirement
 マイクロプロセッサ(ATtiny84A)のファームウェア作成・書き込み環境
+
 電子回路設計
 
 ### References
 ATtiny84Aデータシート(参照：2023,05,21)
+
 https://ww1.microchip.com/downloads/en/DeviceDoc/ATtiny24A-44A-84A-DataSheet-DS40002269A.pdf
