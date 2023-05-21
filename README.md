@@ -3,7 +3,7 @@
 
 ## 1. music_box_hardware
 
-### Description
+### 〇Description
 マイクロプロセッサによるオルゴール用ファームウェアです。
 
 
@@ -12,7 +12,7 @@
 
 このオルゴールは2曲収録しており、スイッチやボリューム抵抗によって曲の種類、速度、音量を変えることができます。
 
-#### 〇Function
+#### Function
 ・PWM制御
 
 周波数を制御し、音色を変更します。
@@ -32,15 +32,15 @@ AD変換を利用するとボリューム抵抗の回し具合に応じた数値
 
 圧電サウンダ（スピーカー）に加わる電圧を変化させ、音量を変更します。
 
-### Demo
+### 〇Demo
 準備中です。
 
-### Requirement
+### 〇Requirement
 マイクロプロセッサ(ATtiny84A)のファームウェア作成・書き込み環境
 
 電子回路設計
 
-### References
+### 〇References
 ATtiny84Aデータシート(参照：2023,05,21)
 
 https://ww1.microchip.com/downloads/en/DeviceDoc/ATtiny24A-44A-84A-DataSheet-DS40002269A.pdf
