@@ -1,7 +1,7 @@
 # kanno-release
 作成したソースコードの例です。研究に直接関わるものの掲載はしていません。
 
-## 1. music_box_hardware
+## 1. music_box_firmware
 
 ### Description
 マイクロプロセッサによるオルゴール用ファームウェアです。
