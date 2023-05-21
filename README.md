@@ -3,7 +3,7 @@
 
 ## 1. music_box_hardware
 
-### 〇Description
+### 〇　Description
 マイクロプロセッサによるオルゴール用ファームウェアです。
 
 
@@ -32,15 +32,15 @@ AD変換を利用するとボリューム抵抗の回し具合に応じた数値
 
 圧電サウンダ（スピーカー）に加わる電圧を変化させ、音量を変更します。
 
-### 〇Demo
+### 〇　Demo
 準備中です。
 
-### 〇Requirement
+### 〇　Requirement
 マイクロプロセッサ(ATtiny84A)のファームウェア作成・書き込み環境
 
 電子回路設計
 
-### 〇References
+### 〇　References
 ATtiny84Aデータシート(参照：2023,05,21)
 
 https://ww1.microchip.com/downloads/en/DeviceDoc/ATtiny24A-44A-84A-DataSheet-DS40002269A.pdf
