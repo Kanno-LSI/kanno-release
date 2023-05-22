@@ -37,6 +37,11 @@ AD変換を利用するとボリューム抵抗の回し具合に応じた数値
 ### Demo
 準備中です。
 
+
+https://github.com/Kanno-LSI/kanno-release/assets/131650927/44e9d738-dd7f-4114-bbbf-154ff0b0dacf
+
+
+
 ### Requirement
 マイクロプロセッサ(ATtiny84A)のファームウェア作成・書き込み環境
 
