@@ -46,13 +46,11 @@ https://github.com/Kanno-LSI/kanno-release/assets/131650927/58037388-fdc6-450d-9
 
 
 曲予約、変更
-https://github.com/Kanno-LSI/kanno-release/assets/131650927/a263887f-693c-444d-96b4-806dcab2a359
-https://github.com/Kanno-LSI/kanno-release/assets/131650927/40f91f39-8c6b-44e0-9feb-79c86b48d94d
+
 
 
 収録曲(Happy Birthday以外)
-https://github.com/Kanno-LSI/kanno-release/assets/131650927/0baf7a6d-76ae-4c9c-8d1d-dd3c03da5f61
-https://github.com/Kanno-LSI/kanno-release/assets/131650927/e12033a2-61d4-4cd9-8f6e-64920026864c
+
 
 
 
