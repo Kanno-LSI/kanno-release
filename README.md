@@ -38,7 +38,9 @@ AD変換を利用するとボリューム抵抗の回し具合に応じた数値
 準備中です。
 
 音量調整
-https://github.com/Kanno-LSI/kanno-release/assets/131650927/8eaa8c73-3d9e-4ef3-b4d6-91fff8f74cb6
+https://github.com/Kanno-LSI/kanno-release/assets/131650927/4da8ea1e-928b-4b66-a706-c1da31aba304
+
+
 
 
 速度調整
