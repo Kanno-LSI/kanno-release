@@ -63,6 +63,7 @@ https://github.com/Kanno-LSI/kanno-release/assets/131650927/bbb4786a-402c-4814-b
 
 
 
+
 ・曲予約、変更
 
 
@@ -70,6 +71,8 @@ https://github.com/Kanno-LSI/kanno-release/assets/131650927/a97ea5ec-9d24-463b-b
 
 
 https://github.com/Kanno-LSI/kanno-release/assets/131650927/1132a6b8-ee2e-4fd3-b4c8-58486e6cbdd3
+
+
 
 
 
