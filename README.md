@@ -42,7 +42,7 @@ https://github.com/Kanno-LSI/kanno-release/assets/131650927/8eaa8c73-3d9e-4ef3-b
 
 
 速度調整
-https://github.com/Kanno-LSI/kanno-release/assets/131650927/58037388-fdc6-450d-95a9-b53e3a0a6726
+
 
 
 曲予約、変更
