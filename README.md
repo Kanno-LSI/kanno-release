@@ -43,10 +43,10 @@ AD変換を利用するとボリューム抵抗の回し具合に応じた数値
 https://github.com/Kanno-LSI/kanno-release/assets/131650927/4da8ea1e-928b-4b66-a706-c1da31aba304
 
 
-
-
 速度調整
 
+
+https://github.com/Kanno-LSI/kanno-release/assets/131650927/bbb4786a-402c-4814-be5b-aeb86c2debef
 
 
 曲予約、変更
