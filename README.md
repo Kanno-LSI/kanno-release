@@ -1,7 +1,7 @@
 # kanno-release
 作成したソースコードの例です。研究に直接関わるものの掲載はしません。
 
-![image](https://github.com/Kanno-LSI/kanno-release/assets/131650927/bc3bb318-d4a2-494e-babf-89755134a06e)
+
 ##  music_box_firmware
 
 ### Description
@@ -12,6 +12,8 @@
 
 
 このオルゴールは2曲収録しており、スイッチやボリューム抵抗によって曲の種類、速度、音量を変えることができます。
+
+![image](https://github.com/Kanno-LSI/kanno-release/assets/131650927/bc3bb318-d4a2-494e-babf-89755134a06e)
 
 
 #### 〇　Function
